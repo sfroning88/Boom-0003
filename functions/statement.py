@@ -1,0 +1,2 @@
+def statement():
+  pass
