@@ -35,16 +35,16 @@ def upload_file():
 
 import sys
 if __name__ == '__main__':
-    if len(sys.argv) != 2 or sys.argv[1].lower() not in ('A','B','C'):
+    if len(sys.argv) != 2 or sys.argv[1].lower() not in ('a','b','c'):
         print("Usage: python3 app.py [A|B|C]")
         sys.exit(1)
     mode = sys.argv[1].lower()
-    if mode == 'A':
+    if mode == 'a':
         # run the app
         app.run()
 
-    elif mode == 'B':
+    elif mode == 'b':
         pass
 
-    elif mode == 'C':
+    elif mode == 'c':
         pass
