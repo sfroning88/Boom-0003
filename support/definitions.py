@@ -101,7 +101,7 @@ inv_patterns = [
         r'inventory withdrawal note', r'inventory consumption note', r'inventory usage note', r'inventory allocation note', r'inventory distribution note',
         r'inventory shipment note', r'inventory delivery note'
     ]
-rev_patterns = [
+rev_include_patterns = [
         r'revenue', r'sales', r'income', r'net sales', r'net revenue', r'gross sales', r'gross revenue',
         r'total revenue', r'total sales', r'operating revenue', r'operating income', r'operating sales',
         r'product revenue', r'product sales', r'service revenue', r'service sales', r'contract revenue',
@@ -130,7 +130,7 @@ rev_patterns = [
         r'gain on sale of fee', r'gain on sale of commission', r'gain on sale of royalty', r'gain on sale of license',
         r'gain on sale of contract', r'gain on sale of project', r'gain on sale of service', r'gain on sale of product'
     ]
-rev_exclude = [
+rev_exclude_patterns = [
         r'expense', r'cost', r'cogs', r'loss', r'other income', r'interest income', r'interest expense',
         r'operating expense', r'operating cost', r'operating loss', r'non-operating expense', r'non-operating cost',
         r'non-operating loss', r'financial expense', r'financial cost', r'financial loss', r'general expense',
