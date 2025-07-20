@@ -9,7 +9,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Boom Bot</title>
+    <title>Scraping Machine</title>
     <link
       rel="stylesheet"
       href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
@@ -48,32 +48,19 @@
                       <span class="online_icon"></span>
                     </div>
                     <div class="user_info">
-                      <span>Boom Bot</span>
-                      <p>Please upload a trial balance or financial statement.</p>
+                      <span>Scraping Machine</span>
+                      <p>Please upload your financial statements to begin.</p>
                     </div>
                   </div>
                 </div>
-                <div id="messageFormeight" class="card-body msg_card_body"></div>
-                <div class="card-footer">
-                  <form id="messageArea" class="input-group">
-                    <input
-                      type="text"
-                      id="text"
-                      name="msg"
-                      placeholder="Type your message..."
-                      autocomplete="off"
-                      class="form-control type_msg"
-                      required
-                    />
-                    <input type="file" id="file" name="file" accept=".csv,.xls,.xlsx" style="display:none;">
-                    <div class="input-group-append">
-                      <button type="button" id="attach-btn" class="input-group-text" title="Attach file">📎</button>
-                      <span id="file-name" style="margin-left: 0.5em; color: #aaa; align-self: center;"></span>
-                      <button type="submit" id="send" class="input-group-text send_btn">
-                        <i class="fas fa-location-arrow"></i>
-                      </button>
+                <div class="card-body msg_card_body d-flex flex-column align-items-center justify-content-center" style="height: 100%;">
+                  <form id="uploadForm" enctype="multipart/form-data" method="POST" action="/chat_upload" style="width: 100%; max-width: 400px;">
+                    <div class="form-group">
+                      <input type="file" id="file" name="file" accept=".csv,.xls,.xlsx" class="form-control-file" required>
                     </div>
+                    <button type="submit" class="btn btn-primary btn-block" style="margin-top: 1em;">Upload File</button>
                   </form>
+                  <div id="upload-status" style="margin-top: 1em;"></div>
                 </div>
               </div>
             </div>
@@ -82,65 +69,11 @@
     </div>
 
     <script>
-      function scrollToBottom() {
-        var messageBody = document.getElementById("messageFormeight");
-        messageBody.scrollTop = messageBody.scrollHeight;
-      }
-
-      let chatMode = 'initial'; // 'initial' or 'followup'
-      let chatContext = '';
-      let thinkingInterval = null;
-
       $(document).ready(function () {
-        $('#messageArea').on('submit', function (event) {
+        $('#uploadForm').on('submit', function (event) {
           event.preventDefault();
-          const date = new Date();
-          const hour = date.getHours();
-          const minute = date.getMinutes();
-          const str_time = hour + ':' + minute;
-          var rawText = $('#text').val();
-          var fileInput = document.getElementById('file');
-          var attachedFileName = '';
-          if (fileInput.files && fileInput.files[0]) {
-            attachedFileName = fileInput.files[0].name;
-          }
-          var userHtml =
-            '<div class="d-flex justify-content-end mb-4"><div class="msg_cotainer_send">' +
-            rawText +
-            '<span class="msg_time_send">' +
-            str_time +
-            '</span></div><div class="img_cont_msg"><img src="https://i.ibb.co/d5b84Xw/Untitled-design.png" class="rounded-circle user_img_msg"></div></div>';
-          if (attachedFileName) {
-            userHtml += '<div class="d-flex justify-content-end mb-1"><div style="color: #888; font-style: italic; background: #f2f2f2; border-radius: 6px; padding: 2px 10px; font-size: 0.95em;">Attached: ' + attachedFileName + '</div></div>';
-          }
-          $('#text').val('');
-          $('#messageFormeight').append(userHtml);
-          scrollToBottom();
-
-          var thinkingHtml =
-            '<div id="thinking-bubble" class="d-flex justify-content-start mb-4"><div class="img_cont_msg"><img src="https://media.licdn.com/dms/image/v2/D560BAQHK10HmqRh1rQ/company-logo_200_200/company-logo_200_200/0/1701815665068/wealthboom_logo?e=1755129600&v=beta&t=0RhPS_izHlCe2NRvKtO7mgT7LXo6T87muFlK-HR_noE" class="rounded-circle user_img_msg"></div><div class="msg_cotainer"><span id="thinking-text" style="font-style: italic; color: #888;">Thinking</span><span class="msg_time">' + str_time + '</span></div></div>';
-          $('#messageFormeight').append($.parseHTML(thinkingHtml));
-          scrollToBottom();
-
-          let dots = [".", "..", "..."];
-          let dotIndex = 0;
-          thinkingInterval = setInterval(function() {
-            $('#thinking-text').text("Thinking" + dots[dotIndex]);
-            dotIndex = (dotIndex + 1) % dots.length;
-          }, 400);
-
-          if (chatMode === 'initial') {
-          // Prepare form data for message and file
-          var formData = new FormData();
-          formData.append('msg', rawText);
-          var fileInput = document.getElementById('file');
-          if (fileInput.files && fileInput.files[0]) {
-            formData.append('file', fileInput.files[0]);
-          }
-          // Clear file input and file name display after sending
-          fileInput.value = '';
-          document.getElementById('file-name').textContent = '';
-
+          var formData = new FormData(this);
+          $('#upload-status').html('<span style="color: #888;">Uploading...</span>');
           $.ajax({
             url: '/chat_upload',
             type: 'POST',
@@ -148,104 +81,19 @@
             processData: false,
             contentType: false,
             success: function (data) {
-                $('#thinking-bubble').remove();
-                if (thinkingInterval) {
-                  clearInterval(thinkingInterval);
-                  thinkingInterval = null;
-                }
-                var botHtml =
-                  '<div class="d-flex justify-content-start mb-4"><div class="img_cont_msg"><img src="https://media.licdn.com/dms/image/v2/D560BAQHK10HmqRh1rQ/company-logo_200_200/company-logo_200_200/0/1701815665068/wealthboom_logo?e=1755129600&v=beta&t=0RhPS_izHlCe2NRvKtO7mgT7LXo6T87muFlK-HR_noE" class="rounded-circle user_img_msg"></div><div class="msg_cotainer">' +
-                  data.analysis +
-                  '<span class="msg_time">' +
-                  str_time +
-                  '</span></div></div>';
-                $('#messageFormeight').append($.parseHTML(botHtml));
-                // If plot_path is present, show the image
-                if (data.plot_path) {
-                  var imgHtml = '<div class="d-flex justify-content-start mb-4"><img src="' + data.plot_path + '" style="max-width: 100%; border-radius: 8px; margin: 10px 0;"></div>';
-                  $('#messageFormeight').append($.parseHTML(imgHtml));
-                }
-                scrollToBottom();
-                // Store context and switch to followup mode
-                chatContext = data.analysis;
-                chatMode = 'followup';
-                // Disable file input and attach button
-                $('#file').prop('disabled', true);
-                $('#attach-btn').prop('disabled', true).css('opacity', 0.5);
-                $('#file-name').text('');
-              },
-              error: function (xhr) {
-                $('#thinking-bubble').remove();
-                if (thinkingInterval) {
-                  clearInterval(thinkingInterval);
-                  thinkingInterval = null;
-                }
-                var botHtml =
-                  '<div class="d-flex justify-content-start mb-4"><div class="img_cont_msg"><img src="https://media.licdn.com/dms/image/v2/D560BAQHK10HmqRh1rQ/company-logo_200_200/company-logo_200_200/0/1701815665068/wealthboom_logo?e=1755129600&v=beta&t=0RhPS_izHlCe2NRvKtO7mgT7LXo6T87muFlK-HR_noE" class="rounded-circle user_img_msg"></div><div class="msg_cotainer">' +
-                  'There was an error processing your request.' +
-                  '<span class="msg_time">' +
-                  str_time +
-                  '</span></div></div>';
-                $('#messageFormeight').append($.parseHTML(botHtml));
-                scrollToBottom();
+              if (data.success) {
+                $('#upload-status').html('<span style="color: green;">File uploaded successfully!</span>');
+                $('#file').val('');
+              } else {
+                $('#upload-status').html('<span style="color: red;">Upload failed.</span>');
               }
-            });
-          } else if (chatMode === 'followup') {
-            // Follow-up: only send text and context
-            $.ajax({
-              url: '/chat_followup',
-              type: 'POST',
-              data: { msg: rawText, context: chatContext },
-              success: function (data) {
-                $('#thinking-bubble').remove();
-                if (thinkingInterval) {
-                  clearInterval(thinkingInterval);
-                  thinkingInterval = null;
-                }
-              var botHtml =
-                '<div class="d-flex justify-content-start mb-4"><div class="img_cont_msg"><img src="https://media.licdn.com/dms/image/v2/D560BAQHK10HmqRh1rQ/company-logo_200_200/company-logo_200_200/0/1701815665068/wealthboom_logo?e=1755129600&v=beta&t=0RhPS_izHlCe2NRvKtO7mgT7LXo6T87muFlK-HR_noE" class="rounded-circle user_img_msg"></div><div class="msg_cotainer">' +
-                  data.response +
-                '<span class="msg_time">' +
-                str_time +
-                '</span></div></div>';
-              $('#messageFormeight').append($.parseHTML(botHtml));
-              scrollToBottom();
-                // Optionally, update chatContext with the latest response for deeper context
-                chatContext += '\n' + rawText + '\n' + data.response;
             },
-            error: function (xhr) {
-                $('#thinking-bubble').remove();
-                if (thinkingInterval) {
-                  clearInterval(thinkingInterval);
-                  thinkingInterval = null;
-                }
-              var botHtml =
-                '<div class="d-flex justify-content-start mb-4"><div class="img_cont_msg"><img src="https://media.licdn.com/dms/image/v2/D560BAQHK10HmqRh1rQ/company-logo_200_200/company-logo_200_200/0/1701815665068/wealthboom_logo?e=1755129600&v=beta&t=0RhPS_izHlCe2NRvKtO7mgT7LXo6T87muFlK-HR_noE" class="rounded-circle user_img_msg"></div><div class="msg_cotainer">' +
-                'There was an error processing your request.' +
-                '<span class="msg_time">' +
-                str_time +
-                '</span></div></div>';
-              $('#messageFormeight').append($.parseHTML(botHtml));
-              scrollToBottom();
+            error: function () {
+              $('#upload-status').html('<span style="color: red;">There was an error processing your request.</span>');
             }
           });
-          }
         });
       });
-
-      document.getElementById('attach-btn').onclick = function(e) {
-        if ($('#file').prop('disabled')) return false;
-        e.preventDefault();
-        document.getElementById('file').click();
-      };
-      document.getElementById('file').onchange = function(e) {
-        const fileNameSpan = document.getElementById('file-name');
-        if (this.files && this.files[0]) {
-          fileNameSpan.textContent = this.files[0].name;
-        } else {
-          fileNameSpan.textContent = '';
-        }
-      };
     </script>
   </body>
 </html>
