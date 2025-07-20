@@ -11,3 +11,40 @@ def home():
         timeout_occurred = False
     
     return render_template('chat.html')
+
+# handle to send chat requests
+@app.route("/get", methods=["GET", "POST"])
+def send_chat():
+    msg = request.form["msg"]
+    input = msg
+    return get_response(input)
+
+# function to get response
+def get_response(prompt):
+    output = 'Flask app is working.'
+    return f'{prompt} -> {output}'
+
+# function to upload file
+@app.route('/chat_upload', methods=['POST'])
+def upload_file():
+    msg = request.form.get('msg', '')
+    file = request.files.get('file')
+    if file:
+        return jsonify({'success': True}), 200
+    return get_response(msg)
+
+import sys
+if __name__ == '__main__':
+    if len(sys.argv) != 2 or sys.argv[1].lower() not in ('A','B','C'):
+        print("Usage: python3 app.py [A|B|C]")
+        sys.exit(1)
+    mode = sys.argv[1].lower()
+    if mode == 'A':
+        # run the app
+        app.run()
+
+    elif mode == 'B':
+        pass
+
+    elif mode == 'C':
+        pass
