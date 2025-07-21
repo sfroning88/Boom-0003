@@ -15,7 +15,7 @@ def upload_file():
     file = request.files.get('file')
     exte = retrieve_extension(file.filename)
     if exte in ALLOWED_EXTENSIONS:
-        process_driver(exte)
+        process_driver(exte, file)
         return jsonify({'success': True}), 200
     elif file:
         return jsonify({'success': False, 'error': 'Invalid file extension.'}), 400
