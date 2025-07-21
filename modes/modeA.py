@@ -1,6 +1,5 @@
-import pandas as pd
-
 def modeA(exte, file):
+    import pandas as pd
     if exte == 'csv':
         df = pd.read_csv(file)
     elif exte == 'xlsx':
