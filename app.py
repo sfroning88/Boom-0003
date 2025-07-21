@@ -1,9 +1,5 @@
 from flask import Flask, render_template, request, jsonify
 
-ALLOWED_EXTENSIONS = {'csv', 'xls', 'xlsx'}
-def allowed_file(filename):
-    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
-
 # create a Flask app
 app = Flask(__name__)
 
@@ -11,27 +7,17 @@ app = Flask(__name__)
 def home():
     return render_template('chat.html')
 
-# handle to send chat requests
-@app.route("/get", methods=["GET", "POST"])
-def send_chat():
-    msg = request.form["msg"]
-    input = msg
-    return get_response(input)
-
-# function to get response
-def get_response(prompt):
-    output = 'Flask app is working.'
-    return f'{prompt} -> {output}'
-
 # function to upload file
+from support.definitions import allowed_file
 @app.route('/chat_upload', methods=['POST'])
 def upload_file():
-    msg = request.form.get('msg', '')
     file = request.files.get('file')
-    if file:
+    if allowed_file(file):
         return jsonify({'success': True}), 200
-    return get_response(msg)
-
+    elif file:
+        return jsonify({'success': False, 'error': 'Invalid file extension.'}), 400
+    return jsonify({'success': False, 'error': 'No file detected.'}), 400
+    
 import sys
 if __name__ == '__main__':
     if len(sys.argv) != 2 or sys.argv[1].lower() not in ('a','b','c'):
@@ -39,6 +25,8 @@ if __name__ == '__main__':
         sys.exit(1)
     mode = sys.argv[1].lower()
     if mode == 'a':
+        # insert code here
+        
         # run the app
         app.run()
 
