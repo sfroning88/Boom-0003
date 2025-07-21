@@ -1,2 +1,2 @@
-def extract_periods():
+def extract_periods(df):
   pass
