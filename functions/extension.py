@@ -1,6 +1,5 @@
-ALLOWED_EXTENSIONS = {'csv', 'xls', 'xlsx'}
-def allowed_file(filename):
-    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+ALLOWED_EXTENSIONS = ['csv', 'xls', 'xlsx']
 
-def extension():
-  pass
+def retrieve_extension(filename):
+    exte = '.' in filename and filename.rsplit('.', 1)[1].lower()
+    return exte.strip().lower()
