@@ -8,7 +8,7 @@ def home():
     return render_template('chat.html')
 
 # function to upload file
-from support.definitions import allowed_file
+from functions.extension import allowed_file
 @app.route('/chat_upload', methods=['POST'])
 def upload_file():
     file = request.files.get('file')
