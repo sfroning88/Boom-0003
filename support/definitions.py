@@ -1,3 +1,7 @@
+ALLOWED_EXTENSIONS = {'csv', 'xls', 'xlsx'}
+def allowed_file(filename):
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
 ar_patterns = [
         r'accounts receivable', r'\ba\/r\b', r'\bar\b', r'trade receivables',
         r'customer receivables', r'notes receivable', r'bills receivable', r'receivables',
