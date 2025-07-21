@@ -1,3 +1,14 @@
+date_patterns = [
+            r'\b(20\d{2})\b', r'\bFY\s*(20\d{2})\b',
+            r'\b(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)[a-z]*\s*(20\d{2})\b',
+            r'\b(January|February|March|April|May|June|July|August|September|October|November|December)\s*(20\d{2})\b',
+            r'\bQ[1-4]\s*(20\d{2})\b', r'\bQ[1-4]\s*FY\s*(20\d{2})\b',
+            r'\b(20\d{2})[-/](20\d{2})\b', r'\b(20\d{2})[/-](0?[1-9]|1[0-2])\b',
+            r'\b(0?[1-9]|1[0-2])[/-](20\d{2})\b',
+            r'\b(0?[1-9]|[12]\d|3[01])[/-](0?[1-9]|1[0-2])[/-](20\d{2})\b',
+            r'\b(0?[1-9]|[12]\d|3[01])[/-](0?[1-9]|1[0-2])[/-](20\d{2})\b',
+        ]
+
 ar_patterns = [
         r'accounts receivable', r'\ba\/r\b', r'\bar\b', r'trade receivables',
         r'customer receivables', r'notes receivable', r'bills receivable', r'receivables',
