@@ -1,4 +1,6 @@
 def modeA(exte, file):
+    accounts = {}
+    
     import pandas as pd
     if exte == 'csv':
         df = pd.read_csv(file)
