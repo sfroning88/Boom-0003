@@ -17,7 +17,8 @@ def extract_periods(df):
         if date_cell(str(cell)):
             periods.append(strip_timestamp(str(cell)))
             periods = list(dict.fromkeys(periods))
-        if periods:
+
+    if periods:
             return periods
     
     for _, row in df.iterrows():
