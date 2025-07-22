@@ -7,13 +7,17 @@ date_patterns = [
             r'\b(0?[1-9]|1[0-2])[/-](20\d{2})\b',
             r'\b(0?[1-9]|[12]\d|3[01])[/-](0?[1-9]|1[0-2])[/-](20\d{2})\b',
             r'\b(0?[1-9]|[12]\d|3[01])[/-](0?[1-9]|1[0-2])[/-](20\d{2})\b',
-        ]
+            ]
 
-ar_patterns = [
+ar_patterns_primary = [
         r'accounts receivable', r'\ba\/r\b', r'\bar\b', r'trade receivables',
         r'customer receivables', r'notes receivable', r'bills receivable', r'receivables',
         r'accounts receivables', r'net receivables', r'gross receivables', r'current receivables',
-        r'non-current receivables', r'other receivables', r'loans receivable', r'advances to suppliers',
+        r'non-current receivables', r'other receivables'
+    ]
+        
+ar_patterns_secondary = [
+        r'loans receivable', r'advances to suppliers',
         r'advances to employees', r'advances to related parties', r'due from customers', r'due from affiliates',
         r'due from related parties', r'due from employees', r'due from officers', r'due from directors',
         r'due from shareholders', r'due from subsidiaries', r'due from parent', r'due from associates',
