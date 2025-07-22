@@ -57,6 +57,6 @@ def extract_account(df, account_type, num_periods):
                     except:
                         continue
                 accounts[pattern_found] = values
-                sum_accounts = [sum(vals) for vals in zip(*accounts.values())]
-                return sum_accounts
+        sum_accounts = [sum(vals) for vals in zip(*accounts.values())]
+        return sum_accounts
     return []
