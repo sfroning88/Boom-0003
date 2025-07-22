@@ -15,4 +15,10 @@ def modeA(exte, file):
     ar = extract_account(df, 'ar', len(periods))
     accounts['accounts receivable'] = ar
 
+    ap = extract_account(df, 'ap', len(periods))
+    accounts['accounts payable'] = ap
+
+    inv = extract_account(df, 'inv', len(periods))
+    accounts['inventory'] = inv
+
     return accounts
