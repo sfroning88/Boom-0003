@@ -5,4 +5,30 @@ def extract_expenses(df):
     pass
 
 def extract_account(df):
-    pass
+    accounts = {}
+    match account_type:
+        case 'ar':
+            from support.definitions import ar_patterns_primary, ar_patterns_secondary
+            pattern_match_primary = ar_patterns_primary
+            pattern_match_secondary = ar_patterns_secondary
+        case _:
+            return accounts
+
+    import re
+    for idx, row in df.iterrows():
+        account_name = str(row.iloc[0]).lower()
+        for pattern in pattern_match_primary:
+            if re.search(pattern, account_name):
+                pattern_found = pattern
+                values = []
+                for cell in row.iloc[1:]:
+                    try:
+                        val = float(cell)
+                        values.append(val)
+                        if len(values) >= num_periods:
+                            break
+                    except:
+                        continue
+                accounts[pattern_found] = values
+                return accounts
+    return accounts # empty dict if no match
