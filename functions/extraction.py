@@ -6,7 +6,9 @@ def extract_revenue(df, num_periods):
     for idx, row in df.iterrows():
         account_name = str(row.iloc[0]).lower()
         for pattern in rev_include_patterns:
-            if pattern not in rev_exclude_patterns:
+            if pattern in rev_exclude_patterns:
+                pass
+            else:
                 if re.search(pattern, account_name):
                     pattern_found = pattern
                     values = []
