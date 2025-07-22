@@ -5,6 +5,7 @@ def extract_expenses(df):
     pass
 
 def extract_account(df):
+    import re
     accounts = {}
     match account_type:
         case 'ar':
@@ -12,9 +13,8 @@ def extract_account(df):
             pattern_match_primary = ar_patterns_primary
             pattern_match_secondary = ar_patterns_secondary
         case _:
-            return accounts
+            return []
 
-    import re
     for idx, row in df.iterrows():
         account_name = str(row.iloc[0]).lower()
         for pattern in pattern_match_primary:
@@ -29,6 +29,24 @@ def extract_account(df):
                             break
                     except:
                         continue
+                return values
+    return []
+
+    for idx, row in df.iterrows():
+        account_name = str(row.iloc[0]).lower()
+        for pattern in pattern_match_secondary:
+            if re.search(pattern, account_name):
+                pattern_found = pattern
+                values = []
+                for cell in row.iloc[1:]:
+                    try:
+                        val = float(cell)
+                        values.append(val)
+                        if len(values) >= num_periods:
+                            break
+                    except:
+                        continue
                 accounts[pattern_found] = values
-                return accounts
-    return accounts # empty dict if no match
+                sum_accounts = [sum(vals) for vals in zip(*accounts.values())]
+                return sum_accounts
+    return []
