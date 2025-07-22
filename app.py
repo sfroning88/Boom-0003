@@ -1,7 +1,9 @@
+import os, sys
 from flask import Flask, render_template, request, jsonify
 
 # create a Flask app
 app = Flask(__name__)
+app.secret_key = os.environ.get('FLASK_SECRET_KEY', 'default_secret_key')
 
 @app.route('/')
 def home():
@@ -21,7 +23,6 @@ def upload_file():
         return jsonify({'success': False, 'error': 'Invalid file extension.'}), 400
     return jsonify({'success': False, 'error': 'No file detected.'}), 400
     
-import sys
 if __name__ == '__main__':
     if len(sys.argv) != 1:
         print("Usage: python3 app.py")
