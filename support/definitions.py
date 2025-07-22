@@ -42,11 +42,16 @@ ar_patterns_secondary = [
         r'customer advance', r'customer deposit', r'customer prepayment', r'customer credit', r'customer debit',
         r'customer due', r'customer outstanding', r'customer balance', r'customer invoice', r'customer account receivable'
     ]
-ap_patterns = [
+
+ap_patterns_primary = [
         r'accounts payable', r'\ba\/p\b', r'\bap\b', r'trade payables',
         r'vendor payables', r'bills payable', r'notes payable', r'payables',
         r'accounts payables', r'net payables', r'gross payables', r'current payables',
-        r'non-current payables', r'other payables', r'loans payable', r'advances from customers',
+        r'non-current payables', r'other payables'
+    ]
+        
+ap_patterns_secondary = [
+        r'loans payable', r'advances from customers',
         r'advances from employees', r'advances from related parties', r'due to suppliers', r'due to affiliates',
         r'due to related parties', r'due to employees', r'due to officers', r'due to directors',
         r'due to shareholders', r'due to subsidiaries', r'due to parent', r'due to associates',
@@ -72,8 +77,12 @@ ap_patterns = [
         r'vendor due', r'vendor outstanding', r'vendor balance', r'vendor invoice', r'vendor account payable'
     ]
 
-inv_patterns = [
-        r'inventory', r'stock', r'raw materials', r'finished goods',
+inv_patterns_primary = [
+        r'inventory'
+    ]
+ 
+inv_patterns_secondary = [
+        r'stock', r'raw materials', r'finished goods',
         r'work in progress', r'work-in-progress', r'wip', r'goods in process',
         r'merchandise', r'merchandise inventory', r'consignment', r'consigned goods',
         r'packing materials', r'supplies', r'parts', r'spare parts', r'components',
