@@ -11,6 +11,15 @@ def strip_timestamp(period):
     return re.sub(r'\s+\d{1,2}:\d{2}(:\d{2})?$', '', period)
 
 def extract_periods(df):
+    periods = []
+
+    for cell in df.columns:
+        if date_cell(str(cell)):
+            periods.append(strip_timestamp(str(cell)))
+            periods = list(dict.fromkeys(periods))
+        if periods:
+            return periods
+    
     for _, row in df.iterrows():
         periods = [strip_timestamp(str(cell)) for cell in row if date_cell(str(cell))]
         periods = list(dict.fromkeys(periods)) # remove duplicates
