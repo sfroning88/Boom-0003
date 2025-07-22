@@ -161,3 +161,7 @@ rev_exclude_patterns = [
         r'doubtful bill payable', r'doubtful loan payable', r'doubtful advance', r'doubtful deposit', r'doubtful prepayment',
         r'doubtful credit', r'doubtful debit', r'doubtful due', r'doubtful outstanding', r'doubtful balance', r'doubtful invoice'
     ]
+
+exp_patterns = [
+    r'cost of goods sold'
+]
