@@ -6,4 +6,4 @@ def modeA(exte, file):
         df = pd.read_excel(file)
 
     from functions.periods import extract_periods
-    extract_periods(df)
+    periods = extract_periods(df)
