@@ -7,3 +7,7 @@ def modeA(exte, file):
 
     from functions.periods import extract_periods
     periods = extract_periods(df)
+
+    accounts['periods'] = periods
+
+    return accounts
