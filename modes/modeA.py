@@ -7,7 +7,10 @@ def modeA(exte, file):
 
     from functions.periods import extract_periods
     periods = extract_periods(df)
-
     accounts['periods'] = periods
+
+    from functions.extraction import extract_account
+    ar = extract_account(df, 'ar', len(periods))
+    accounts['accounts receivable'] = ar
 
     return accounts
