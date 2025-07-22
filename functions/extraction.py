@@ -6,21 +6,22 @@ def extract_revenue(df, num_periods):
     for idx, row in df.iterrows():
         account_name = str(row.iloc[0]).lower()
         for pattern in rev_include_patterns:
-            if pattern in rev_exclude_patterns:
-                pass
-            else:
-                if re.search(pattern, account_name):
-                    pattern_found = pattern
-                    values = []
-                    for cell in row.iloc[1:]:
-                        try:
-                            val = float(cell)
-                            values.append(val)
-                            if len(values) >= num_periods:
-                                break
-                        except:
-                            continue
-                    accounts[pattern_found] = values
+            if re.search(pattern, account_name):
+                excluded = any(re.search(exclude_pattern, account_name) for exclude_pattern in rev_exclude_patterns)
+                if excluded:
+                    continue
+
+                pattern_found = pattern
+                values = []
+                for cell in row.iloc[1:]:
+                    try:
+                        val = float(cell)
+                        values.append(val)
+                        if len(values) >= num_periods:
+                            break
+                    except:
+                        continue
+                accounts[pattern_found] = values
     
     sum_accounts = [sum(vals) for vals in zip(*accounts.values())]
     return sum_accounts if sum_accounts else []
