@@ -4,7 +4,7 @@ def extract_revenue(df):
 def extract_expenses(df):
     pass
 
-def extract_account(df):
+def extract_account(df, account_type, num_periods):
     import re
     accounts = {}
     match account_type:
