@@ -7,7 +7,7 @@ date_patterns = [
             r'\b(0?[1-9]|1[0-2])[/-](20\d{2})\b',
             r'\b(0?[1-9]|[12]\d|3[01])[/-](0?[1-9]|1[0-2])[/-](20\d{2})\b',
             r'\b(0?[1-9]|[12]\d|3[01])[/-](0?[1-9]|1[0-2])[/-](20\d{2})\b',
-            ]
+    ]
 
 ar_patterns_primary = [
         r'accounts receivable', r'\ba\/r\b', r'\bar\b', r'trade receivables',
@@ -71,6 +71,7 @@ ap_patterns = [
         r'vendor advance', r'vendor deposit', r'vendor prepayment', r'vendor credit', r'vendor debit',
         r'vendor due', r'vendor outstanding', r'vendor balance', r'vendor invoice', r'vendor account payable'
     ]
+
 inv_patterns = [
         r'inventory', r'stock', r'raw materials', r'finished goods',
         r'work in progress', r'work-in-progress', r'wip', r'goods in process',
@@ -116,6 +117,7 @@ inv_patterns = [
         r'inventory withdrawal note', r'inventory consumption note', r'inventory usage note', r'inventory allocation note', r'inventory distribution note',
         r'inventory shipment note', r'inventory delivery note'
     ]
+
 rev_include_patterns = [
         r'revenue', r'sales', r'income', r'net sales', r'net revenue', r'gross sales', r'gross revenue',
         r'total revenue', r'total sales', r'operating revenue', r'operating income', r'operating sales',
@@ -145,6 +147,7 @@ rev_include_patterns = [
         r'gain on sale of fee', r'gain on sale of commission', r'gain on sale of royalty', r'gain on sale of license',
         r'gain on sale of contract', r'gain on sale of project', r'gain on sale of service', r'gain on sale of product'
     ]
+
 rev_exclude_patterns = [
         r'expense', r'cost', r'cogs', r'loss', r'other income', r'interest income', r'interest expense',
         r'operating expense', r'operating cost', r'operating loss', r'non-operating expense', r'non-operating cost',
