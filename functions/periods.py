@@ -16,10 +16,10 @@ def extract_periods(df):
     for cell in df.columns:
         if date_cell(str(cell)):
             periods.append(strip_timestamp(str(cell)))
-            periods = list(dict.fromkeys(periods))
 
     if periods:
-            return periods
+        periods = list(dict.fromkeys(periods))
+        return periods
     
     for _, row in df.iterrows():
         periods = [strip_timestamp(str(cell)) for cell in row if date_cell(str(cell))]
