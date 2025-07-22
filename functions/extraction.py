@@ -12,6 +12,17 @@ def extract_account(df, account_type, num_periods):
             from support.definitions import ar_patterns_primary, ar_patterns_secondary
             pattern_match_primary = ar_patterns_primary
             pattern_match_secondary = ar_patterns_secondary
+        
+        case 'ap':
+            from support.definitions import ap_patterns_primary, ap_patterns_secondary
+            pattern_match_primary = ap_patterns_primary
+            pattern_match_secondary = ap_patterns_secondary
+
+        case 'inv':
+            from support.definitions import inv_patterns_primary, inv_patterns_secondary
+            pattern_match_primary = inv_patterns_primary
+            pattern_match_secondary = inv_patterns_secondary
+            
         case _:
             return []
 
