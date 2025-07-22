@@ -12,6 +12,7 @@ def home():
 # function to upload file
 from functions.extension import ALLOWED_EXTENSIONS, retrieve_extension
 from functions.driver import process_driver
+from functions.generate import generate_code
 @app.route('/chat_upload', methods=['POST'])
 def upload_file():
     file = request.files.get('file')
