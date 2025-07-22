@@ -41,7 +41,6 @@ def extract_account(df, account_type, num_periods):
                     except:
                         continue
                 return values
-    return []
 
     for idx, row in df.iterrows():
         account_name = str(row.iloc[0]).lower()
