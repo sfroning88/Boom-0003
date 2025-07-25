@@ -3,8 +3,3 @@ Enhanced scraping capabilities for financial statements, supported across more d
 
 Usage from CLI:
 python3 app.py [Category]
-
-Category A Documents:
-- .csv
-- .xls
-- .xlxs
