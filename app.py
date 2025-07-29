@@ -5,6 +5,9 @@ from flask import Flask, render_template, request, jsonify
 app = Flask(__name__)
 app.secret_key = os.environ.get('FLASK_SECRET_KEY', 'default_secret_key')
 
+# global accounts dictionary
+accounts_dict = {}
+
 @app.route('/')
 def home():
     return render_template('chat.html')
