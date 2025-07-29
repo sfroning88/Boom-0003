@@ -26,8 +26,30 @@ def extract_revenue(df, num_periods):
     sum_accounts = [sum(vals) for vals in zip(*accounts.values())]
     return sum_accounts if sum_accounts else []
 
-def extract_expenses(df):
-    pass
+def extract_expenses(df, num_periods):
+    import re
+    accounts = {}
+    from support.definitions import exp_patterns
+
+    for idx, row in df.iterrows():
+        account_name = str(row.iloc[0]).lower()
+        for pattern in exp_patterns:
+            if re.search(pattern, account_name):
+
+                pattern_found = pattern
+                values = []
+                for cell in row.iloc[1:]:
+                    try:
+                        val = float(cell)
+                        values.append(val)
+                        if len(values) >= num_periods:
+                            break
+                    except:
+                        continue
+                accounts[pattern_found] = values
+    
+    sum_accounts = [sum(vals) for vals in zip(*accounts.values())]
+    return sum_accounts if sum_accounts else []
 
 def extract_account(df, account_type, num_periods):
     import re
