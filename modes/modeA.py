@@ -15,6 +15,10 @@ def modeA(exte, file):
     rev = extract_revenue(df, len(periods))
     accounts['revenue'] = rev
 
+    from functions.extraction import extract_expenses
+    exp = extract_expenses(df, len(periods))
+    accounts['expenses'] = exp
+
     from functions.extraction import extract_account
     ar = extract_account(df, 'ar', len(periods))
     accounts['accounts receivable'] = ar
