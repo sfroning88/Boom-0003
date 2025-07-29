@@ -181,5 +181,5 @@ rev_exclude_patterns = [
     ]
 
 exp_patterns = [
-    r'cost of goods sold'
+    r'cost of goods sold', r'supplies expense'
 ]
